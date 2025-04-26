@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import {
   BrowserRouter as Router,
-  Router,
   Routes,
   useLocation,
   Route,
@@ -13,7 +12,7 @@ import SignUp from "./pages/SignUp";
 import Home from "./pages/Home";
 
 const AuthWrapper = ({ children }) => {
-  const { checkAuth, checkingAuth } = useAuthStore;
+  const { checkAuth, checkingAuth } = useAuthStore();
   const user = useAuthStore((state) => state.user);
   const location = useLocation();
 
