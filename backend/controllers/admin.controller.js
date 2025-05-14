@@ -1,4 +1,7 @@
 import Market from "../models/market.model.js";
+import ManagerRequest from "../models/manager.request.model.js";
+import User from "../models/user.model.js";
+import { sendUserRoleNotification } from "./notification.controller.js";
 
 export const createMarket = async (req, res) => {
   try {
@@ -41,17 +44,6 @@ export const createMarket = async (req, res) => {
   }
 };
 
-export const getAllMarkets = async (req, res) => {
-  try {
-    const markets = await Market.find({});
-    res.status(200).json({ markets });
-  } catch (error) {
-    res
-      .status(500)
-      .json({ message: "Failed to get markets", error: error.message });
-  }
-};
-
 export const updateMarket = async (req, res) => {
   try {
     const marketid = req.market.id;
@@ -86,5 +78,50 @@ export const deleteMarket = async (req, res) => {
     res
       .status(500)
       .json({ message: "Failed to delete market", error: error.message });
+  }
+};
+
+export const handleManagerRequest = async (req, res) => {
+  try {
+    const { requestId } = req.params;
+    const { action } = req.body;
+
+    const request = await ManagerRequest.findById(requestId);
+    if (!request) {
+      return res.status(404).json({ message: "Manager request not found" });
+    }
+
+    if (request.status !== "pending") {
+      return res
+        .status(400)
+        .json({ message: "This request has already been handled" });
+    }
+
+    if (action === "approve") {
+      request.status = "approved";
+      request.expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
+
+      await User.findByIdAndUpdate(request.user, { role: "manager" });
+      const role = "manager";
+
+      await sendUserRoleNotification(request.user, true, role);
+    } else if (action === "reject") {
+      request.status = "rejected";
+      request.expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
+      const role = "user";
+
+      await sendUserRoleNotification(request.user, false, role);
+    } else {
+      return res.status(400).json({ message: "Invalid action" });
+    }
+
+    await request.save();
+
+    res.status(200).json({ message: `Request ${action}ed successfully` });
+  } catch (error) {
+    res.status(500).json({
+      message: "Error handling manager request",
+      error: error.message,
+    });
   }
 };

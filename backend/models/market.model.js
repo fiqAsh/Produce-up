@@ -23,6 +23,11 @@ const marketSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
+    deliveryman: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: false,
+    },
 
     producePrices: [
       {
