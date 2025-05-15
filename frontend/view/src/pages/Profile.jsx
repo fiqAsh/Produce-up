@@ -10,6 +10,7 @@ import HandleManager from "../components/HandleManager";
 import HandleDeliveryman from "../components/HandleDeliveryman";
 import MarketProduceUpdater from "../components/MarketProducerUpdater";
 import { useUserStore } from "../stores/useUserStore";
+import DeliveryOrdersList from "../components/DeliveryOrdersList";
 
 const Profile = () => {
   const { user } = useAuthStore();
@@ -19,7 +20,7 @@ const Profile = () => {
   const unreadCount = notifications.filter((n) => !n.isRead).length;
   const isAdmin = user?.user?.role === "admin";
   const isManager = user?.user?.role === "manager";
-  console.log(markets);
+  const isDeliveryman = user?.user?.role === "deliveryman";
 
   useEffect(() => {
     getNotifications();
@@ -116,6 +117,20 @@ const Profile = () => {
               </button>
             </>
           )}
+          {isDeliveryman && (
+            <>
+              <button
+                onClick={() => setActiveTab("delivery_requests")}
+                className={`py-2 px-4 font-semibold ${
+                  activeTab === "delivery_requests"
+                    ? "text border-b-2 border-accent-content"
+                    : "text-warning hover:text-warning-content"
+                }`}
+              >
+                Delivery Requests
+              </button>
+            </>
+          )}
           {isManager && (
             <>
               <button
@@ -162,6 +177,9 @@ const Profile = () => {
           )}
           {isManager && activeTab === "updateMarket" && (
             <MarketProduceUpdater markets={markets} />
+          )}
+          {isDeliveryman && activeTab === "delivery_requests" && (
+            <DeliveryOrdersList />
           )}
         </div>
       </div>

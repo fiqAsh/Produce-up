@@ -13,6 +13,7 @@ import produceRoutes from "./routes/produce.route.js";
 import managerRoutes from "./routes/manager.route.js";
 import notificationRoutes from "./routes/notification.route.js";
 import deliveryRoutes from "./routes/deliver.route.js";
+import deliverymanRoutes from "./routes/deliveryman.route.js";
 dotenv.config();
 
 const app = express();
@@ -34,6 +35,7 @@ app.use("/api/produce", produceRoutes);
 app.use("/api/manager", managerRoutes);
 app.use("/api/notification", notificationRoutes);
 app.use("/api/delivery", deliveryRoutes);
+app.use("/api/deliveryman", deliverymanRoutes);
 
 app.listen(8000, () => {
   console.log("server started at http://localhost:8000");
