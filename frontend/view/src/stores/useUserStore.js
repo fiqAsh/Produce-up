@@ -65,7 +65,6 @@ export const useUserStore = create((set, get) => ({
     }
   },
 
-  // Apply for manager
   applyForManager: async (marketId) => {
     set({ loading: true, error: null });
     try {
@@ -82,7 +81,6 @@ export const useUserStore = create((set, get) => ({
     }
   },
 
-  // Apply for deliveryman
   applyForDeliveryman: async (marketId) => {
     set({ loading: true, error: null });
     try {
@@ -99,6 +97,5 @@ export const useUserStore = create((set, get) => ({
     }
   },
 
-  // Clear messages
   clearMessages: () => set({ error: null, successMessage: null }),
 }));

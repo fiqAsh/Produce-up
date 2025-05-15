@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useUserStore } from "../stores/useUserStore"; // adjust path as needed
-import MapComponent from "./MapComponent"; // adjust path as needed
+
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";

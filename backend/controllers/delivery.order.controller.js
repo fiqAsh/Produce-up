@@ -1,5 +1,5 @@
 import DeliveryOrder from "../models/delivery.order.model.js";
-import User from "../models/user.model.js";
+
 import Market from "../models/market.model.js";
 import { sendOrderNotification } from "./notification.controller.js";
 

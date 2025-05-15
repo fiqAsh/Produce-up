@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import UserInfo from "../components/UserInfo";
 import { useAuthStore } from "../stores/useAuthStore";
@@ -8,17 +8,22 @@ import ApplyForManager from "../components/ManagerApplication";
 import ApplyForDeliveryman from "../components/DeliveryManApplication";
 import HandleManager from "../components/HandleManager";
 import HandleDeliveryman from "../components/HandleDeliveryman";
+import MarketProduceUpdater from "../components/MarketProducerUpdater";
+import { useUserStore } from "../stores/useUserStore";
 
 const Profile = () => {
   const { user } = useAuthStore();
   const { getNotifications, notifications } = useNotificationStore();
+  const { markets, fetchAllMarkets } = useUserStore();
   const [activeTab, setActiveTab] = useState("info");
   const unreadCount = notifications.filter((n) => !n.isRead).length;
   const isAdmin = user?.user?.role === "admin";
   const isManager = user?.user?.role === "manager";
+  console.log(markets);
 
   useEffect(() => {
     getNotifications();
+    fetchAllMarkets();
   }, []);
   return (
     <div className="min-h-screen bg-base-200">
@@ -123,6 +128,16 @@ const Profile = () => {
               >
                 Delivery Man Requests
               </button>
+              <button
+                onClick={() => setActiveTab("updateMarket")}
+                className={`py-2 px-4 font-semibold ${
+                  activeTab === "updateMarket"
+                    ? "text border-b-2 border-accent-content"
+                    : "text-warning hover:text-warning-content"
+                }`}
+              >
+                Update Market
+              </button>
             </>
           )}
         </div>
@@ -144,6 +159,9 @@ const Profile = () => {
           {isAdmin && activeTab === "handlemanager" && <HandleManager />}
           {isManager && activeTab === "handledeliveryman" && (
             <HandleDeliveryman />
+          )}
+          {isManager && activeTab === "updateMarket" && (
+            <MarketProduceUpdater markets={markets} />
           )}
         </div>
       </div>

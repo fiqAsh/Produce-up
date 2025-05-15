@@ -8,5 +8,5 @@ import {
 const router = express.Router();
 
 router.post("/createDeliveryOrder", authenticateUser, createDeliveryOrder);
-router.get("/getDeliveryEstimate", authenticateUser, getDeliveryEstimate);
+router.post("/getDeliveryEstimate", authenticateUser, getDeliveryEstimate);
 export default router;
