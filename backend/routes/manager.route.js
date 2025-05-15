@@ -3,6 +3,7 @@ import { authenticateManager } from "../utils/auth.middleware.js";
 import {
   updateProducePriceQuantity,
   handleDeliveryManRequest,
+  getDeliverymanRequests,
 } from "../controllers/manager.controller.js";
 
 const router = express.Router();
@@ -19,4 +20,9 @@ router.patch(
   handleDeliveryManRequest
 );
 
+router.get(
+  "/getDeliverymanRequests",
+  authenticateManager,
+  getDeliverymanRequests
+);
 export default router;

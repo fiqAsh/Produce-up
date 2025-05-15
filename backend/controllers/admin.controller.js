@@ -108,7 +108,7 @@ export const handleManagerRequest = async (req, res) => {
     } else if (action === "reject") {
       request.status = "rejected";
       request.expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
-      const role = "user";
+      const role = "manager";
 
       await sendUserRoleNotification(request.user, false, role);
     } else {
@@ -121,6 +121,18 @@ export const handleManagerRequest = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       message: "Error handling manager request",
+      error: error.message,
+    });
+  }
+};
+
+export const getAllManagerRequests = async (req, res) => {
+  try {
+    const requests = await ManagerRequest.find({}).populate("user");
+    res.status(200).json({ requests });
+  } catch (error) {
+    res.status(500).json({
+      message: "Failed to get manager requests",
       error: error.message,
     });
   }

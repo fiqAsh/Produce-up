@@ -69,7 +69,7 @@ export const useAuthStore = create((set, get) => ({
     set({ checkingAuth: true });
 
     try {
-      const res = await axiosInstance.get("/auth/getUserProfile");
+      const res = await axiosInstance.get("/user/getUserProfile");
       set({ user: res.data, checkingAuth: false });
     } catch (error) {
       if (error.response?.status === 401) {
@@ -77,7 +77,7 @@ export const useAuthStore = create((set, get) => ({
 
         if (newAccessToken) {
           try {
-            const res = await axiosInstance.get("/auth/getUserProfile");
+            const res = await axiosInstance.get("/user/getUserProfile");
             set({ user: res.data, checkingAuth: false });
             return;
           } catch (error) {

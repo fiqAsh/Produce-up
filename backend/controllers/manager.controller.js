@@ -94,7 +94,7 @@ export const handleDeliveryManRequest = async (req, res) => {
     } else if (action === "reject") {
       request.status = "rejected";
       request.expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
-      const role = "user";
+      const role = "deliveryman";
 
       await sendUserRoleNotification(request.user, false, role);
     } else {
@@ -107,6 +107,37 @@ export const handleDeliveryManRequest = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       message: "Error handling manager request",
+      error: error.message,
+    });
+  }
+};
+
+export const getDeliverymanRequests = async (req, res) => {
+  try {
+    const managerId = req.user.id;
+
+    // Get all markets managed by this manager
+    const markets = await Market.find({ manager: managerId });
+
+    const marketIds = markets.map((m) => m._id);
+
+    if (marketIds.length === 0) {
+      return res
+        .status(200)
+        .json({ message: "No markets assigned", requests: [] });
+    }
+
+    // Find deliveryman requests tied to those markets
+    const requests = await DeliveryManRequest.find({
+      market: { $in: marketIds },
+    })
+      .populate("user", "name email") // Optional: populate user info
+      .populate("market", "name"); // Optional: populate market name
+
+    res.status(200).json({ requests });
+  } catch (error) {
+    res.status(500).json({
+      message: "Failed to fetch deliveryman requests",
       error: error.message,
     });
   }

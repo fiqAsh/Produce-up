@@ -28,6 +28,12 @@ const Navbar = () => {
         Home
       </button>
       <button
+        onClick={() => navigate("/profile")}
+        className="btn btn-ghost normal-case text-xl shadow "
+      >
+        Profile
+      </button>
+      <button
         className="btn btn-ghost normal-case text-xl "
         onClick={handleLogout}
       >

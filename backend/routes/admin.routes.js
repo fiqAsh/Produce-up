@@ -6,6 +6,7 @@ import {
   deleteMarket,
   updateMarket,
   handleManagerRequest,
+  getAllManagerRequests,
 } from "../controllers/admin.controller.js";
 
 const router = express.Router();
@@ -19,5 +20,6 @@ router.patch(
   authenticateAdmin,
   handleManagerRequest
 );
+router.get("/getAllManagerRequests", authenticateAdmin, getAllManagerRequests);
 
 export default router;
