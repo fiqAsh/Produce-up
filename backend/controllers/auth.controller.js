@@ -40,7 +40,7 @@ const setCookies = (res, accessToken, refreshToken) => {
     maxAge: 1000 * 60 * 60 * 24,
   });
 };
-
+//ar
 export const signup = async (req, res) => {
   try {
     const { name, email, password, phone, latitude, longitude, role } =
@@ -78,7 +78,7 @@ export const signup = async (req, res) => {
     res.status(500).json({ message: "Signup failed", error: error.message });
   }
 };
-
+//ar
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;

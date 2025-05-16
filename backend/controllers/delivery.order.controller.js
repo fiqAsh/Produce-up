@@ -26,7 +26,7 @@ const haversineDistance = (coords1, coords2) => {
 
   return R * c; // Distance in km
 };
-
+//hjb
 export const createDeliveryOrder = async (req, res) => {
   try {
     const { marketFromId, marketToId, items, deliverymanId, managerid } =
@@ -81,7 +81,7 @@ export const createDeliveryOrder = async (req, res) => {
     res.status(500).json({ message: "Server error", error: error.message });
   }
 };
-
+//hjb
 export const getDeliveryEstimate = async (req, res) => {
   try {
     const { marketFromId, marketToId, items } = req.body;

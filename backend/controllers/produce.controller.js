@@ -1,6 +1,6 @@
 import Produce from "../models/produce.model.js";
 import Market from "../models/market.model.js";
-
+//m
 export const findLowestPriceForProduce = async (req, res) => {
   try {
     const { produceid } = req.params;
@@ -60,7 +60,7 @@ export const createProduce = async (req, res) => {
     const { name, unit } = req.body;
     const existingProduce = await Produce.findOne({ name });
     if (existingProduce) {
-      res.status(400).json({ message: "Produce already exists" });
+      return res.status(400).json({ message: "Produce already exists" });
     }
 
     const newProduce = await Produce.create({ name, unit });

@@ -6,7 +6,7 @@ import {
   sendManagerApplicationNotification,
 } from "./notification.controller.js";
 import DeliveryManRequest from "../models/delivery.request.model.js";
-
+//r
 export const getUserProfile = async (req, res) => {
   try {
     res.status(200).json({ user: req.user });
@@ -27,7 +27,7 @@ export const getAllUser = async (req, res) => {
       .json({ message: "Failed to get users", error: error.message });
   }
 };
-
+//r
 export const updateUser = async (req, res) => {
   try {
     const userid = req.user.id;
@@ -73,7 +73,7 @@ export const updateUser = async (req, res) => {
       .json({ message: "Failed to update user", error: error.message });
   }
 };
-
+//r
 export const applyForManager = async (req, res) => {
   try {
     const userid = req.user.id;
@@ -112,6 +112,7 @@ export const applyForManager = async (req, res) => {
       .json({ message: "Failed to apply for manager", error: error.message });
   }
 };
+//r
 export const applyForDeliveryman = async (req, res) => {
   try {
     const userid = req.user.id;

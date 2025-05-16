@@ -2,7 +2,7 @@ import Market from "../models/market.model.js";
 import ManagerRequest from "../models/manager.request.model.js";
 import User from "../models/user.model.js";
 import { sendUserRoleNotification } from "./notification.controller.js";
-
+//ar
 export const createMarket = async (req, res) => {
   try {
     const { name, latitude, longitude, manager, producePrices } = req.body;
@@ -43,7 +43,7 @@ export const createMarket = async (req, res) => {
       .json({ message: "Failed to create market", error: error.message });
   }
 };
-
+//ar
 export const updateMarket = async (req, res) => {
   try {
     const { id, name, manager } = req.body;
@@ -83,7 +83,7 @@ export const deleteMarket = async (req, res) => {
       .json({ message: "Failed to delete market", error: error.message });
   }
 };
-
+//hjb
 export const handleManagerRequest = async (req, res) => {
   try {
     const { requestId } = req.params;
@@ -120,7 +120,7 @@ export const handleManagerRequest = async (req, res) => {
 
     await request.save();
 
-    res.status(200).json({ message: `Request ${action}ed successfully` });
+    res.status(200).json({ message: `Request ${action} successfully` });
   } catch (error) {
     res.status(500).json({
       message: "Error handling manager request",
@@ -128,7 +128,7 @@ export const handleManagerRequest = async (req, res) => {
     });
   }
 };
-
+//hjb
 export const getAllManagerRequests = async (req, res) => {
   try {
     const requests = await ManagerRequest.find({}).populate("user");
