@@ -11,6 +11,8 @@ import HandleDeliveryman from "../components/HandleDeliveryman";
 import MarketProduceUpdater from "../components/MarketProducerUpdater";
 import { useUserStore } from "../stores/useUserStore";
 import DeliveryOrdersList from "../components/DeliveryOrdersList";
+import CreateMarketForm from "../components/CreateMarketForm";
+import ManageMarkets from "../components/ManageMarkets";
 
 const Profile = () => {
   const { user } = useAuthStore();
@@ -115,6 +117,26 @@ const Profile = () => {
               >
                 Manager Requests
               </button>
+              <button
+                onClick={() => setActiveTab("create_market")}
+                className={`py-2 px-4 font-semibold ${
+                  activeTab === "create_market"
+                    ? "text border-b-2 border-accent-content"
+                    : "text-warning hover:text-warning-content"
+                }`}
+              >
+                Create Market
+              </button>
+              <button
+                onClick={() => setActiveTab("update_market")}
+                className={`py-2 px-4 font-semibold ${
+                  activeTab === "update_market"
+                    ? "text border-b-2 border-accent-content"
+                    : "text-warning hover:text-warning-content"
+                }`}
+              >
+                Update Market
+              </button>
             </>
           )}
           {isDeliveryman && (
@@ -172,6 +194,8 @@ const Profile = () => {
             </>
           )}
           {isAdmin && activeTab === "handlemanager" && <HandleManager />}
+          {isAdmin && activeTab === "create_market" && <CreateMarketForm />}
+          {isAdmin && activeTab === "update_market" && <ManageMarkets />}
           {isManager && activeTab === "handledeliveryman" && (
             <HandleDeliveryman />
           )}

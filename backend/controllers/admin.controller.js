@@ -46,10 +46,9 @@ export const createMarket = async (req, res) => {
 
 export const updateMarket = async (req, res) => {
   try {
-    const marketid = req.market.id;
-    const { name, manager } = req.body;
+    const { id, name, manager } = req.body;
 
-    let market = await Market.findById(marketid);
+    let market = await Market.findById(id);
 
     if (!market) {
       res.status(404).json({ message: "Market not found" });
@@ -69,9 +68,13 @@ export const updateMarket = async (req, res) => {
 
 export const deleteMarket = async (req, res) => {
   try {
-    const marketid = req.market.id;
+    const { marketId } = req.body; // Fix key casing
 
-    await Market.findByIdAndDelete(marketid);
+    const deleted = await Market.findByIdAndDelete(marketId);
+
+    if (!deleted) {
+      return res.status(404).json({ message: "Market not found" });
+    }
 
     res.status(200).json({ message: "Market deleted successfully" });
   } catch (error) {

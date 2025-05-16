@@ -12,6 +12,8 @@ export const useAdminStore = create((set, get) => ({
   loading: false,
   successMessage: null,
   error: null,
+  users: [],
+  produces: [],
 
   // Clear messages
   clearMessages: () => set({ successMessage: null, error: null }),
@@ -102,6 +104,34 @@ export const useAdminStore = create((set, get) => ({
       set({ loading: true });
       const res = await axiosInstance.get("/admin/getAllManagerRequests");
       set({ managerRequests: res.data.requests, error: null });
+    } catch (err) {
+      set({
+        error:
+          err.response?.data?.message || "Failed to fetch manager requests",
+      });
+    } finally {
+      set({ loading: false });
+    }
+  },
+  getAllUsers: async () => {
+    try {
+      set({ loading: true });
+      const res = await axiosInstance.get("/user/getAllUser");
+      set({ users: res.data.users, error: null });
+    } catch (err) {
+      set({
+        error:
+          err.response?.data?.message || "Failed to fetch manager requests",
+      });
+    } finally {
+      set({ loading: false });
+    }
+  },
+  getAllProduces: async () => {
+    try {
+      set({ loading: true });
+      const res = await axiosInstance.get("/produce/getAllProduce");
+      set({ produces: res.data.produces, error: null });
     } catch (err) {
       set({
         error:

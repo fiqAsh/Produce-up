@@ -1,25 +1,6 @@
 import Produce from "../models/produce.model.js";
 import Market from "../models/market.model.js";
 
-export const createProduce = async (req, res) => {
-  try {
-    const { name, unit } = req.body;
-    const existingProduce = await Produce.findOne({ name });
-    if (existingProduce) {
-      res.status(400).json({ message: "Produce already exists" });
-    }
-
-    const newProduce = await Produce.create({ name, unit });
-    res
-      .status(201)
-      .json({ message: "Produce created successfully", newProduce });
-  } catch (error) {
-    res
-      .status(500)
-      .json({ message: "Failed to create produce", error: error.message });
-  }
-};
-
 export const findLowestPriceForProduce = async (req, res) => {
   try {
     const { produceid } = req.params;
@@ -71,6 +52,25 @@ export const findLowestPriceForProduce = async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server Error" });
+  }
+};
+
+export const createProduce = async (req, res) => {
+  try {
+    const { name, unit } = req.body;
+    const existingProduce = await Produce.findOne({ name });
+    if (existingProduce) {
+      res.status(400).json({ message: "Produce already exists" });
+    }
+
+    const newProduce = await Produce.create({ name, unit });
+    res
+      .status(201)
+      .json({ message: "Produce created successfully", newProduce });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Failed to create produce", error: error.message });
   }
 };
 

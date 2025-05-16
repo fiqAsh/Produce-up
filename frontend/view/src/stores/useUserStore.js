@@ -14,6 +14,8 @@ export const useUserStore = create((set, get) => ({
   loading: false,
   error: null,
   successMessage: null,
+  produces: [],
+  lowestMarket: null,
 
   updateUser: async (data) => {
     set({ loading: true, error: null });
@@ -91,6 +93,34 @@ export const useUserStore = create((set, get) => ({
     } catch (err) {
       set({
         error: err.response?.data?.message || "Deliveryman application failed",
+      });
+    } finally {
+      set({ loading: false });
+    }
+  },
+  findLowestPriceForProduce: async (produceid) => {
+    set({ loading: true, error: null });
+    try {
+      const res = await axiosInstance.get(
+        `/produce/findLowestPriceForProduce/${produceid}`
+      );
+      set({ lowestMarket: res.data.lowestMarket });
+    } catch (err) {
+      set({
+        error: err.response?.data?.message,
+      });
+    } finally {
+      set({ loading: false });
+    }
+  },
+  getAllProduces: async () => {
+    try {
+      set({ loading: true });
+      const res = await axiosInstance.get("/produce/getAllProduce");
+      set({ produces: res.data.produces, error: null });
+    } catch (err) {
+      set({
+        error: err.response?.data?.message,
       });
     } finally {
       set({ loading: false });
