@@ -75,40 +75,19 @@ Data Accuracy – Ensure produce prices are up-to-date and consistent.
 NF10
 Backup & Recovery – Daily backups and ability to restore data in case of failure.
 
-Features:
+features list:
+Ashfiqur rahman
+1.Users can signup
+2.Users can login/logout
+3.Admins can create market 4. Admins can update market
 
-M1
-Users can sign up, login, logout
+Mahmud meraj
+1.Managers can update markets produce price and quantity 2. managers can retreive deliveryman request 3. managers can approve/reject deliveryman request 4. users can find produce with lowest cost across all markets
 
-Users can compare prices across markets
+Hasna johir borno
+1.admins can retrieve requests for manager post
+2.admins can approve/reject applications of manager post
+3.users can get time and cost estimate of a market to market produce delivery 4. users can place order from a market to another market
 
-Admin can create/delete new markets
-
-Admin can assign managers
-
-M2
-Users can find produce with the lowest price
-
-Users can find nearest market
-
-Admin can update all markets
-
-Managers can update their assigned markets
-
-M3
-Users can see delivery time and charge
-
-Users can track delivery vehicle
-
-Managers can process orders of their markets
-
-Delivery man can update the delivery status
-
-M4
-Admin can see statistics of all markets
-
-Managers can see statistics of their market
-
-Users can get notifications when price drops
-
-Users, Admins, Managers, Delivery man will have different dashboards
+Rafiqul islam
+1.Users can see their profile 2. Users can update their profile 3. users can apply to the admin to be a manager of a market 4. users can apply to be a deliveryman to the manager

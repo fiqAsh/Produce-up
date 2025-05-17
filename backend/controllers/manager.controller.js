@@ -116,7 +116,6 @@ export const getDeliverymanRequests = async (req, res) => {
   try {
     const managerId = req.user.id;
 
-    // Get all markets managed by this manager
     const markets = await Market.find({ manager: managerId });
 
     const marketIds = markets.map((m) => m._id);
@@ -127,12 +126,11 @@ export const getDeliverymanRequests = async (req, res) => {
         .json({ message: "No markets assigned", requests: [] });
     }
 
-    // Find deliveryman requests tied to those markets
     const requests = await DeliveryManRequest.find({
       market: { $in: marketIds },
     })
-      .populate("user", "name email") // Optional: populate user info
-      .populate("market", "name"); // Optional: populate market name
+      .populate("user", "name email")
+      .populate("market", "name");
 
     res.status(200).json({ requests });
   } catch (error) {
